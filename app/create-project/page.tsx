@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import ProjectCard from "../components/ProjectCard";
+import { useRouter } from "next/navigation";
+
 
 export default function CreateProject(){
     const [selectedStructure, setSelectedStructure] = useState<string>("");
@@ -8,6 +10,22 @@ export default function CreateProject(){
     const [projectName, setProjectName] = useState<string>("");
     const [description, setDescription] = useState<string>("")
     const [step, setStep] = useState<string>("structure");
+    const router = useRouter();
+    function handleCreateProject() {
+        const project ={
+            name: projectName,
+            description,
+            structure: selectedStructure,
+            genre: selectedGenre,
+        };
+        console.log("Project Created!")
+        console.log(project);
+
+        localStorage.setItem("currentProject", JSON.stringify(project));
+
+        router.push("dashboard");
+
+    }
     return(
         <main className="min-h-screen bg-slate-950 text-white px-6">
             <p className="mt-4 text-center text-sm uppercase tracking-[0.3em] text-emerald-400">
@@ -146,6 +164,7 @@ export default function CreateProject(){
                         className="mb-6 h-32 w-full rounded-xl border border-slate-700 bg-slate-900 p-4 text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none">
                         </textarea>
                         <button
+                                onClick={handleCreateProject}
                                 disabled={!projectName}
                                 className={`mt-6 rounded-xl px-9 py-4 text-lg font-semibold transition-all duration-200 ${
                                     projectName
