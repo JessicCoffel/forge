@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950 text-white">
@@ -18,12 +20,22 @@ export default function Home() {
         Create characters.<br />
         Build kingdoms.<br />
         Map timelines.<br />
-        Keep ever detail connected from the first idea to the final chapter.
+        Keep every detail connected from the first idea to the final chapter.
         </p>
 
-       <button className="mt-10 rounded-xl bg-emerald-500 px-9 py-5 text-2xl font-semibold text-slate-950 transition hover:bg-emerald-400">
-        Create Project
-       </button>
+        <div className="mt-10 flex flex-col items-center gap-4">
+          <button
+          disabled
+          className="rounded-xl border border-slate-700 px-9 py-4 text-lg font-semibold text-slate-500 opacity-40">
+          Continue Project
+          </button>
+
+          <Link
+          href="/create-project"
+          className="rounded-xl bg-emerald-500 px-9 py-4 text-lg font-semibold text-slate-950 transition-all duration-200 hover:bg-emerald-400">
+          Create Project
+          </Link>
+        </div>
 
        <p className="mt-10 text-sm italic text-slate-500">
         Your story. One connected workspace.
