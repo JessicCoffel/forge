@@ -1,6 +1,17 @@
+"use client";
 import Link from "next/link";
+import {useEffect, useState } from "react";
 
 export default function Home() {
+  const [hasProject, setHasProject] = useState(false);
+
+  useEffect(() =>{
+    const savedProject = localStorage.getItem("currentProject");
+
+    if (savedProject){
+      setHasProject(true);
+    }
+  }, []);
   return (
     <main className="min-h-screen bg-slate-950 text-white">
 
@@ -24,11 +35,20 @@ export default function Home() {
         </p>
 
         <div className="mt-10 flex flex-col items-center gap-4">
-          <button
-          disabled
-          className="rounded-xl border border-slate-700 px-9 py-4 text-lg font-semibold text-slate-500 opacity-40">
-          Continue Project
-          </button>
+          {hasProject ? (
+            <Link
+            href="/projects"
+            className= "rounded-xl bg-emerald-500 px-9 py-4 text-lg font-semibold text-slate-950 transition-all duration-200 hover:bg-emerald-400">
+              Continue Project
+              </Link>
+          ) : (
+            <button
+            disabled
+            className="cursor-not-allowed rounded-xl border border-slate-700 px-9 py-4 text-lg font-semibold text-slate-500 opacity-50">
+              Continue Project
+              </button>
+          )}
+          
 
           <Link
           href="/create-project"

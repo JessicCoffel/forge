@@ -1,10 +1,10 @@
-type ProjectCardProps = {
+type CreateProjectOptionProps = {
     title: string;
     selected: boolean;
     onClick: () => void;
 };
 
-export default function ProjectCard({ title, selected, onClick }: ProjectCardProps) {
+export default function CreateProjectOption({ title, selected, onClick }: CreateProjectOptionProps) {
     return (
         <button 
             onClick={onClick}

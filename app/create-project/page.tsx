@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import ProjectCard from "../components/ProjectCard";
+import CreateProjectOption from "../components/projects/CreateProjectOption";
 import { useRouter } from "next/navigation";
 
 
@@ -48,19 +48,19 @@ export default function CreateProject(){
 
                     <div className="mt-8 w-full max-w-md">
 
-                        <ProjectCard title="Standalone" 
+                        <CreateProjectOption title="Standalone" 
                         selected={selectedStructure === "Standalone"} 
                         onClick={() => setSelectedStructure("Standalone")}
                         />
-                        <ProjectCard title="Duology" 
+                        <CreateProjectOption title="Duology" 
                         selected={selectedStructure === "Duology"} 
                         onClick={() => setSelectedStructure("Duology")}
                         />
-                        <ProjectCard title="Trilogy" 
+                        <CreateProjectOption title="Trilogy" 
                         selected={selectedStructure === "Trilogy"}
                         onClick={() => setSelectedStructure("Trilogy")} 
                         />
-                        <ProjectCard title="Series" 
+                        <CreateProjectOption title="Series" 
                         selected={selectedStructure === "Series"}
                         onClick={() => setSelectedStructure("Series")} />
 
@@ -92,7 +92,7 @@ export default function CreateProject(){
                     </p>
 
                     <div className="mt-8 w-full max-w-md">
-                        <ProjectCard title="Romantasy"
+                        <CreateProjectOption title="Romantasy"
                             selected={selectedGenre === "Romantasy"}
                             onClick={() => setSelectedGenre("Romantasy")}
                         />
