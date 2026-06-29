@@ -2,6 +2,7 @@ import Link from "next/link";
 
 type ProjectCardProps ={
     project: {
+        id: string;
         name: string;
         genre: string;
         structure: string;
@@ -32,7 +33,7 @@ export default function ProjectCard({ project }: ProjectCardProps){
                 <span>Status: Planning</span>
                     
                 <Link
-                    href="/dashboard"
+                    href={`/projects/${project.id}`}
                     className="text-emerald-400 trasition-all duration-200 hover:text-emerald-300">
                     Continue →
                 </Link>

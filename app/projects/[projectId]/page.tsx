@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import AddCard from "../components/dashboard/AddCard";
-import AddCardModal from "../components/dashboard/AddCardModal";
-import DashboardCard from "../components/dashboard/DashboardCard";
+import AddCard from "../../components/dashboard/AddCard";
+import AddCardModal from "../../components/dashboard/AddCardModal";
+import DashboardCard from "../../components/dashboard/DashboardCard";
 
 
 export default function Dashboard(){
@@ -23,9 +23,35 @@ export default function Dashboard(){
     }, []);
 
     function handleAddCard(card: any) {
-        setDashboardCards((current) => [...current, card]);
+        if (!project) return;
+
+        const updatedCards = [...dashboardCards, card];
+
+        const updatedProject = {
+            ...project,
+            dashboardCards: updatedCards,
+        };
+        setDashboardCards(updatedCards);
+        setProject(updatedProject);
+        localStorage.setItem("currentProject", JSON.stringify(updatedProject));
+
         setShowAddCardModal(false);
     }
+
+    function handleDeleteCard(id: string) {
+        if (!project) return;
+        const updateCards = dashboardCards.filter((card) => card.id !== id);
+
+        const updateProject = {
+            ...project,
+            dashboardCards: updateCards
+        };
+
+        setDashboardCards(updateCards);
+        setProject(updateProject);
+        localStorage.setItem("currentProject", JSON.stringify(updateProject));
+    }
+
     return(
         <main className="min-h-screen bg-slate-950 text-white px-6">
             <p className="mt-4 text-center text-sm uppercase tracking-[0.3em] text-emerald-400">
@@ -54,6 +80,7 @@ export default function Dashboard(){
                         <DashboardCard 
                             key={card.id}
                             card={card}
+                            onDelete={handleDeleteCard}
                             />
                        
                     ))}

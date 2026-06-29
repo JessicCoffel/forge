@@ -13,17 +13,19 @@ export default function CreateProject(){
     const router = useRouter();
     function handleCreateProject() {
         const project ={
+            id: Date.now().toString(),
             name: projectName,
             description,
             structure: selectedStructure,
             genre: selectedGenre,
+            dashboardCards: [],
         };
         console.log("Project Created!")
         console.log(project);
 
         localStorage.setItem("currentProject", JSON.stringify(project));
 
-        router.push("dashboard");
+        router.push(`/projects/${project.id}`);
 
     }
     return(

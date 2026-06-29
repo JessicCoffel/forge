@@ -5,18 +5,26 @@ type DashboardCardProps ={
         id: string;
         title: string;
     };
+    onDelete: (id: string) => void;
 };
 
-export default function DashboardCard({ card }: DashboardCardProps) {
+export default function DashboardCard({ card, onDelete }: DashboardCardProps) {
     const route = `/${card.id.toLowerCase()}`;
 
     return(
         <div className="rounded-2xl border border-slate-700 bg-slate-900 p-6 text-left">
-            <div className="mb-4 h-1 w-16 rounded-full " />
+            <div className="flex items-start justify-between">
+                <h2 className="text-2xl font-bold text-white">
+                    {card.title}
+                </h2>
 
-            <h2 className="text-2xl font-bold text-white">
-                {card.title}
-            </h2>
+                <button
+                    onClick={() => onDelete(card.id)}
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-800 hover:text-red-400">
+                        ×
+                </button>
+            </div>
+            
 
             <p className="mt-2 text-sm text-slate-400">
                 Build and organize your {card.title.toLowerCase()}.
@@ -34,5 +42,5 @@ export default function DashboardCard({ card }: DashboardCardProps) {
                 </Link>
             </div>
         </div>
-    )
+     )
 }
