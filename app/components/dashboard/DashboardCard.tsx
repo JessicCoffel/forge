@@ -5,11 +5,12 @@ type DashboardCardProps ={
         id: string;
         title: string;
     };
+    projectId: string;
     onDelete: (id: string) => void;
 };
 
-export default function DashboardCard({ card, onDelete }: DashboardCardProps) {
-    const route = `/${card.id.toLowerCase()}`;
+export default function DashboardCard({ card, projectId, onDelete }: DashboardCardProps) {
+    const route = `/projects/${projectId}/${card.id.toLowerCase()}`;
 
     return(
         <div className="rounded-2xl border border-slate-700 bg-slate-900 p-6 text-left">
