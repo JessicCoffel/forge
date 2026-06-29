@@ -1,18 +1,31 @@
 "use client";
 import { useEffect, useState } from "react";
+import AddCard from "../components/dashboard/AddCard";
+import AddCardModal from "../components/dashboard/AddCardModal";
+import DashboardCard from "../components/dashboard/DashboardCard";
 
 
 export default function Dashboard(){
 
     const [project, setProject]= useState<any>(null);
+    const [showAddCardModal, setShowAddCardModal] = useState(false);
+    const [dashboardCards, setDashboardCards] = useState<any[]>([]);
 
     useEffect(() => {
         const savedProject = localStorage.getItem("currentProject")
 
         if (savedProject){
-            setProject(JSON.parse(savedProject));
+            const parsedProject = JSON.parse(savedProject);
+            
+            setProject(parsedProject);
+            setDashboardCards(parsedProject.dashboardCards || []);
         }
     }, []);
+
+    function handleAddCard(card: any) {
+        setDashboardCards((current) => [...current, card]);
+        setShowAddCardModal(false);
+    }
     return(
         <main className="min-h-screen bg-slate-950 text-white px-6">
             <p className="mt-4 text-center text-sm uppercase tracking-[0.3em] text-emerald-400">
@@ -27,9 +40,34 @@ export default function Dashboard(){
                     {project?.structure} • {project?.genre}
                 </h2>
 
-                <h3 className="mt-4 text-md text-slate-400">
-                    Welcome to your project dashboard.
+                
+                <h3 className="mt-4 italic text-slate-400">
+                    {project?.description}
                 </h3>
+
+                <h4 className="mt-4 text-lg uppercase font-bold text-emerald-400">
+                    Welcome to your project dashboard
+                </h4>
+
+                <div className="mt-10 grid w-full max-w-2xl gap-4 sm:grid-cols-2">
+                    {dashboardCards.map((card) => (
+                        <DashboardCard 
+                            key={card.id}
+                            card={card}
+                            />
+                       
+                    ))}
+                </div>
+
+                <AddCard onClick={() => setShowAddCardModal(true)}
+                />
+
+                {showAddCardModal && (
+                    <AddCardModal 
+                    onClose={() => setShowAddCardModal(false)}
+                    onAddCard={handleAddCard}
+                    />
+                )}
             </section>
         </main>
     )
